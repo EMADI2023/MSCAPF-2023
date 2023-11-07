@@ -1,0 +1,146 @@
+import pandas as pd
+import numpy as np
+from  keras.models import Sequential
+from keras.layers import LSTM, Dense, Activation
+from sklearn.metrics import mean_squared_error as mse
+
+np.random.seed (121)
+
+
+# preprocessing data
+file_path= ''C:/Users/...'
+df = pd.read_excel(file_path, nrows= 100,000)
+
+
+
+# Create sequences gfor time steps
+
+
+inputdata= df [[columns]]
+outputdata= df [[columns]]
+
+
+
+time_steps = ?
+input_S = []
+output_S = []
+
+from sklearn.preprocessing import MinMaxScaler , StandardScaler
+
+# Create a normalizer instance
+scaler = StandardScaler()
+normalizer= scaler.fit (inputdata)
+inputdata_N= normalizer.transform(inputdata)
+
+#  = inputdata_N.values # Convert DataFrame to a NumPy array
+outputdatanp = outputdata.values  # Convert DataFrame to a NumPy array
+
+for i in range(len(inputdata_N) - time_steps + 1):
+    input_S.append(inputdata_N[i:i + time_steps])
+    output_S.append(outputdatanp[i:i + time_steps])
+                              
+                              
+input_sS = np.array(input_S)                            
+output_sS = np.array(output_S) 
+                            
+X_data = input_sS.reshape(input_sS.shape[0], input_sS.shape[1], input_sS.shape[2])
+Y_data = output_sS.reshape(output_sS.shape[0], output_sS.shape[1], output_sS.shape[2])
+# normalizer= RobustScaler().fit (input_S)
+# inputdata_N= normalizer.transform(input_S)
+
+
+model= Sequential()
+# tune the layers as you find fit
+model.add (LSTM(units =??, return_sequences=True, input_shape = (timestep, features)))
+model.add (LSTM(units =??, return_sequences=True, activation = 'relu'))
+model.add (LSTM(units =??, return_sequences=True))
+
+
+
+model.add(LSTM (units= ??, activation = 'relu'))
+model.add (Dense(units=output_fiture_number, activation = 'linear'))
+
+from tensorflow.keras.optimizers import Adam
+learning_rate=  ???
+optimizer = Adam(learning_rate=learning_rate)
+
+model.compile (optimizer=optimizer, loss= 'mean_squared_error')
+model.fit ( X_data, Y_data, epochs= 50, batch_size =1)
+
+
+from sklearn.metrics import mean_squared_error as mse
+dof = pd.read_excel(file_path)
+selected = dof.iloc[test data set]
+
+testdatax= selected [[columns]]
+testdatay= selected [[columns]]
+
+
+
+print('normal output')
+mean =mse(testdatax,testdatay)
+print (mean )
+
+
+testdataxnp= normalizer.transform(testdatax)
+
+
+input_tS = []
+output_tS = []
+# testdataxnp = testdatax.values # Convert DataFrame to a NumPy array
+testdataynp = testdatay.values  # Convert DataFrame to a NumPy array
+
+for i in range(len(testdataxnp) - time_steps + 1):
+    input_tS.append(testdataxnp[i:i + time_steps])
+    output_tS.append(testdataynp[i:i + time_steps])
+    
+input_tS = np.array(input_tS)                            
+output_tS = np.array(output_tS)     
+X_test = input_tS.reshape(input_tS.shape[0], input_tS.shape[1], input_tS.shape[2])
+Y_test = output_tS.reshape(output_tS.shape[0], output_tS.shape[1], output_tS.shape[2])
+
+
+y_test_reshaped = Y_test[:, -1, :]
+ypredict = model.predict (X_test)
+print('result')
+print (mse(y_test_reshaped,ypredict))
+
+
+
+# print result
+dfypredict = pd.DataFrame (ypredict)
+
+## save to xlsx file
+
+filepath = 'C:/Users/....predict.xlsx'
+
+dfypredict.to_excel(filepath, index=False)
+
+
+dfy_test_reshaped = pd.DataFrame (y_test_reshaped)
+
+## save to xlsx file
+
+filepath2 = 'C:/Users.....shaped.xlsx'
+
+dfy_test_reshaped.to_excel(filepath2, index=False)
+
+
+
+
+dftestdatax = pd.DataFrame (testdatax)
+
+## save to xlsx file
+
+filepath2 = 'C:/Users/....estdatax.xlsx'
+
+dftestdatax.to_excel(filepath2, index=False)
+
+
+
+save_path = "C:/Users/.............modelLSTM.h5"
+model.save(save_path) 
+
+
+
+
